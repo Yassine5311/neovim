@@ -1,6 +1,49 @@
 -- ── UI Enhancements ──────────────────────────────────────
 -- Inspired by LazyVim, AstroNvim, NvChad
 return {
+  -- Noice: UI replacement for messages, cmdline and popupmenu
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = { "MunifTanjim/nui.nvim" },
+    opts = {
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+            },
+          },
+          view = "mini",
+        },
+      },
+      presets = {
+        bottom_search = true,
+        command_palette = true,
+        long_message_to_split = true,
+        inc_rename = false,
+      },
+      -- Disable notify, use snacks.notifier
+      notify = { enabled = false },
+    },
+    keys = {
+      { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
+      { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
+      { "<leader>na", function() require("noice").cmd("all") end, desc = "Noice All" },
+      { "<leader>nd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+    },
+  },
+
   -- Statusline
   {
     "nvim-lualine/lualine.nvim",
@@ -27,23 +70,26 @@ return {
         if not clients or #clients == 0 then
           return ""
         end
-        local names = {}
+        local count = 0
         for _, c in ipairs(clients) do
           if c.name ~= "copilot" then
-            table.insert(names, c.name)
+            count = count + 1
           end
         end
-        if #names == 0 then
+        if count == 0 then
           return ""
         end
-        return "LSP:" .. table.concat(names, ",")
+        if count == 1 then
+          return "LSP"
+        end
+        return "LSP:" .. count
       end
 
       return {
         options = {
           theme = "auto",
           globalstatus = true,
-          component_separators = { left = "│", right = "│" },
+          component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           disabled_filetypes = {
             statusline = { "dashboard", "alpha", "ministarter" },
@@ -65,7 +111,6 @@ return {
             },
           },
           lualine_c = {
-            { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             {
               "filename",
               path = 1,
@@ -80,8 +125,8 @@ return {
             -- Copilot status indicator
             {
               "copilot",
-              show_colors = true,
-              show_loading = true,
+              show_colors = false,
+              show_loading = false,
             },
             {
               lsp_clients,
@@ -89,7 +134,7 @@ return {
             },
             {
               "diagnostics",
-              symbols = { error = " ", warn = " ", info = " ", hint = "󰌵 " },
+              symbols = { error = "E ", warn = "W ", info = "I ", hint = "H " },
             },
             {
               function() return require("lazy.status").updates() end,
@@ -98,7 +143,6 @@ return {
             },
           },
           lualine_y = {
-            { "filetype", icon_only = false },
             { "encoding", show_bomb = true, fmt = function(s) return s ~= "utf-8" and s or "" end },
             {
               "fileformat",
@@ -107,8 +151,7 @@ return {
             },
           },
           lualine_z = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
-            { "location", padding = { left = 0, right = 1 } },
+            { "location", padding = { left = 1, right = 1 } },
           },
         },
         extensions = { "nvim-tree", "lazy", "mason", "quickfix", "man" },
@@ -131,9 +174,8 @@ return {
         diagnostics = "nvim_lsp",
         always_show_bufferline = false,
         diagnostics_indicator = function(_, _, diag)
-          local icons = { error = " ", warning = " ", hint = "󰌵 ", info = " " }
-          local ret = (diag.error and icons.error .. diag.error .. " " or "")
-            .. (diag.warning and icons.warning .. diag.warning or "")
+          local ret = (diag.error and "E" .. diag.error .. " " or "")
+            .. (diag.warning and "W" .. diag.warning or "")
           return vim.trim(ret)
         end,
         offsets = {
@@ -142,14 +184,16 @@ return {
         separator_style = "thin",
         show_buffer_close_icons = true,
         show_close_icon = false,
-        show_tab_indicators = true,
+        show_tab_indicators = false,
         persist_buffer_sort = true,
         color_icons = true,
         enforce_regular_tabs = false,
         max_name_length = 30,
         max_prefix_length = 15,
         tab_size = 21,
-        hover = { enabled = true, delay = 200, reveal = { "close" } },
+        indicator = { style = "underline" },
+        hover = { enabled = false },
+        show_buffer_close_icons = false,
       },
     },
     keys = {
@@ -238,57 +282,7 @@ return {
     end,
   },
 
-  -- Notifications (noice replaces notify for a better experience)
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "rcarriga/nvim-notify",
-    },
-    opts = {
-      lsp = {
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-        hover = { enabled = true },
-        signature = { enabled = true },
-      },
-      routes = {
-        -- Hide "written" messages
-        { filter = { event = "msg_show", kind = "", find = "written" }, opts = { skip = true } },
-        -- Hide search count messages
-        { filter = { event = "msg_show", kind = "search_count" }, opts = { skip = true } },
-      },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = false,
-        lsp_doc_border = true,
-      },
-    },
-    keys = {
-      { "<leader>un", function() require("noice").cmd("dismiss") end, desc = "Dismiss notifications" },
-      { "<leader>nh", function() require("noice").cmd("history") end, desc = "Notification history" },
-      { "<leader>na", function() require("noice").cmd("all") end,     desc = "All notifications" },
-    },
-  },
 
-  -- Notify (used by noice)
-  {
-    "rcarriga/nvim-notify",
-    opts = {
-      timeout = 2000,
-      max_height = function() return math.floor(vim.o.lines * 0.75) end,
-      max_width = function() return math.floor(vim.o.columns * 0.75) end,
-      render = "wrapped-compact",
-      stages = "fade",
-      top_down = true,
-    },
-  },
 
   -- Better UI for inputs/selects (fallback, telescope-ui-select also handles this)
   {
@@ -352,7 +346,7 @@ return {
     event = { "BufReadPost", "BufNewFile" },
     opts = {
       show_in_active_only = true,
-      handlers = { diagnostic = true, gitsigns = true },
+      handlers = { diagnostic = true, gitsigns = false },
     },
     config = function(_, opts)
       require("scrollbar").setup(opts)
@@ -381,7 +375,7 @@ return {
         topdelete    = { text = "" },
         changedelete = { text = "▎" },
       },
-      current_line_blame = true,
+      current_line_blame = false,
       current_line_blame_opts = {
         virt_text = true,
         virt_text_pos = "eol",
@@ -468,25 +462,4 @@ return {
     },
   },
 
-  -- Mini indentscope: animated indent scope visualization (popular in LazyVim)
-  {
-    "echasnovski/mini.indentscope",
-    version = false,
-    event = { "BufReadPost", "BufNewFile" },
-    opts = {
-      symbol = "│",
-      options = { try_as_border = true },
-    },
-    init = function()
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help", "dashboard", "alpha", "neo-tree", "NvimTree", "Trouble",
-          "trouble", "lazy", "mason", "notify", "toggleterm", "lazyterm",
-        },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
-      })
-    end,
-  },
 }

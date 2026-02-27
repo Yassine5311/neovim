@@ -36,13 +36,10 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete window", remap = true })
 
 -- ── Buffers ──
-map("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
-map("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "[b", "<cmd>bprevious<cr>", { desc = "Prev buffer" })
 map("n", "]b", "<cmd>bnext<cr>", { desc = "Next buffer" })
 map("n", "<leader>bb", "<cmd>e #<cr>", { desc = "Switch to other buffer" })
 map("n", "<leader>`", "<cmd>e #<cr>", { desc = "Switch to other buffer" })
-map("n", "<leader>bd", function() Snacks.bufdelete() end, { desc = "Delete buffer" })
 map("n", "<leader>bo", function() Snacks.bufdelete.other() end, { desc = "Delete other buffers", silent = true })
 
 -- ── Search ──
@@ -152,21 +149,6 @@ map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect pos" })
 
--- ── Quickfix navigation (LazyVim extras) ──
-map("n", "<leader>xf", "<cmd>cfirst<cr>", { desc = "First quickfix" })
-map("n", "<leader>xl", "<cmd>clast<cr>", { desc = "Last quickfix" })
-
--- ── Undo tree toggle ──
-map("n", "<leader>uu", "<cmd>UndotreeToggle<cr>", { desc = "Toggle undotree" })
-
--- ── Markdown preview ──
-map("n", "<leader>mp", "<cmd>MarkdownPreviewToggle<cr>", { desc = "Markdown preview" })
-
--- ── Yank history (yanky.nvim) ──
-map({ "n", "x" }, "<leader>p", function() require("telescope").extensions.yank_history.yank_history({}) end, { desc = "Yank history" })
-
--- ── Generate annotation (neogen) ──
-map("n", "<leader>cn", function() require("neogen").generate() end, { desc = "Generate annotation" })
 
 -- ── Better escape (jk/jj — common in many configs) ──
 map("i", "jk", "<Esc>", { desc = "Escape insert mode" })

@@ -112,9 +112,3 @@ opt.statuscolumn = [[%!v:lua.require'snacks.statuscolumn'.get()]]
 
 -- Fix markdown indentation settings
 g.markdown_recommended_style = 0
-
--- Disable providers
-g.loaded_python3_provider = 0
-g.loaded_ruby_provider = 0
-g.loaded_perl_provider = 0
-g.loaded_node_provider = 0

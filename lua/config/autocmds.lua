@@ -141,18 +141,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   end,
 })
 
--- Disable mini.indentscope for certain filetypes
-vim.api.nvim_create_autocmd("FileType", {
-  group = augroup("indentscope_disable"),
-  pattern = {
-    "help", "dashboard", "alpha", "lazy", "mason", "notify",
-    "NvimTree", "neo-tree", "Trouble", "trouble", "toggleterm",
-  },
-  callback = function()
-    vim.b.miniindentscope_disable = true
-  end,
-})
-
 -- Auto toggle relative line numbers on focus/mode change (NvChad/common)
 vim.api.nvim_create_autocmd({ "InsertEnter", "InsertLeave" }, {
   group = augroup("toggle_relnum"),

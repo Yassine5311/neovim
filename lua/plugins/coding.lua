@@ -52,6 +52,45 @@ return {
     opts = {},
   },
 
+  -- Flash: Navigate your code with search labels, enhanced character motions, and Treesitter integration
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    vscode = true,
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "o", "x" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    },
+  },
+
+  -- Mini.ai: Better text objects (args, function call, etc.)
+  {
+    "echasnovski/mini.ai",
+    event = "VeryLazy",
+    opts = function()
+      local ai = require("mini.ai")
+      return {
+        n_lines = 500,
+        custom_textobjects = {
+          o = ai.gen_spec.treesitter({
+            a = { "@block.outer", "@conditional.outer", "@loop.outer" },
+            i = { "@block.inner", "@conditional.inner", "@loop.inner" },
+          }, {}),
+          f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }, {}),
+          c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }, {}),
+          t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" },
+        },
+      }
+    end,
+    config = function(_, opts)
+      require("mini.ai").setup(opts)
+    end,
+  },
+
   -- Neogen: Docstring/annotation generator (supports multiple languages)
   {
     "danymat/neogen",

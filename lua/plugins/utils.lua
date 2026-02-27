@@ -113,21 +113,6 @@ return {
     },
   },
 
-  -- Smooth scrolling
-  {
-    "karb94/neoscroll.nvim",
-    event = "VeryLazy",
-    cond = not vim.g.neovide, -- disable if using Neovide (has native smooth scroll)
-    opts = {
-      mappings = { "<C-u>", "<C-d>", "<C-b>", "<C-f>", "zt", "zz", "zb" },
-      hide_cursor = true,
-      stop_eof = true,
-      respect_scrolloff = false,
-      cursor_scrolls_alone = true,
-      easing = "quadratic",
-    },
-  },
-
   -- Tmux navigation (only loads if inside tmux)
   {
     "christoomey/vim-tmux-navigator",

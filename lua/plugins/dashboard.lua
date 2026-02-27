@@ -27,7 +27,7 @@ return {
           {
             icon = "󰈞  ",
             icon_hl = "Title",
-            desc = "Find File                        ",
+            desc = "Find file",
             desc_hl = "String",
             key = "f",
             key_hl = "Number",
@@ -37,7 +37,7 @@ return {
           {
             icon = "󰎔  ",
             icon_hl = "Title",
-            desc = "New File                         ",
+            desc = "New file",
             desc_hl = "String",
             key = "n",
             key_hl = "Number",
@@ -47,7 +47,7 @@ return {
           {
             icon = "󰈙  ",
             icon_hl = "Title",
-            desc = "Recent Files                     ",
+            desc = "Recent files",
             desc_hl = "String",
             key = "r",
             key_hl = "Number",
@@ -57,7 +57,7 @@ return {
           {
             icon = "󰈬  ",
             icon_hl = "Title",
-            desc = "Find Word                        ",
+            desc = "Find word",
             desc_hl = "String",
             key = "g",
             key_hl = "Number",
@@ -67,7 +67,7 @@ return {
           {
             icon = "󰙅  ",
             icon_hl = "Title",
-            desc = "File Explorer                    ",
+            desc = "File explorer",
             desc_hl = "String",
             key = "e",
             key_hl = "Number",
@@ -77,7 +77,7 @@ return {
           {
             icon = "󰉋  ",
             icon_hl = "Title",
-            desc = "Config                           ",
+            desc = "Config",
             desc_hl = "String",
             key = "c",
             key_hl = "Number",
@@ -87,7 +87,7 @@ return {
           {
             icon = "󰁯  ",
             icon_hl = "Title",
-            desc = "Restore Session                  ",
+            desc = "Restore session",
             desc_hl = "String",
             key = "s",
             key_hl = "Number",
@@ -97,7 +97,7 @@ return {
           {
             icon = "󰒲  ",
             icon_hl = "Title",
-            desc = "Lazy Plugins                     ",
+            desc = "Lazy plugins",
             desc_hl = "String",
             key = "l",
             key_hl = "Number",
@@ -105,19 +105,9 @@ return {
             action = "Lazy",
           },
           {
-            icon = "󰏓  ",
+            icon = "󰐥  ",
             icon_hl = "Title",
-            desc = "Mason                            ",
-            desc_hl = "String",
-            key = "m",
-            key_hl = "Number",
-            key_format = " [%s]",
-            action = "Mason",
-          },
-          {
-            icon = "󰩈  ",
-            icon_hl = "Title",
-            desc = "Quit                             ",
+            desc = "Quit",
             desc_hl = "String",
             key = "q",
             key_hl = "Number",
@@ -127,12 +117,8 @@ return {
         },
         footer = function()
           local stats = require("lazy").stats()
-          local v = vim.version()
-          return {
-            "",
-            "⚡ " .. stats.loaded .. "/" .. stats.count .. " plugins loaded in " .. string.format("%.1f", stats.startuptime) .. "ms",
-            "   v" .. v.major .. "." .. v.minor .. "." .. v.patch,
-          }
+          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+          return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
         end,
       },
     },

@@ -39,12 +39,7 @@ return {
         end,
       },
       -- Animated indent scope (like mini.indentscope but integrated)
-      indent = {
-        enabled = true,
-        indent = { char = "│", only_scope = false, only_current = false },
-        animate = { enabled = true, style = "out" },
-        scope = { enabled = true, char = "│" },
-      },
+      indent = { enabled = false },
       -- Image viewer for supported terminals (kitty, wezterm, etc.)
       image = { enabled = true },
       -- Dashboard (replaces dashboard-nvim if desired, or keep both)

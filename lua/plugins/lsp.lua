@@ -57,7 +57,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "pyright",
-        "ts_ls",
+        "vtsls",        -- Better TypeScript server (replaces ts_ls)
         "html",
         "cssls",
         "jsonls",
@@ -220,6 +220,36 @@ return {
           },
         },
       })
+      
+      -- vtsls (TypeScript) configuration - better than ts_ls
+      vim.lsp.config("vtsls", {
+        settings = {
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
+            },
+          },
+          typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
+            inlayHints = {
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              variableTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              enumMemberValues = { enabled = true },
+            },
+          },
+        },
+      })
 
       vim.lsp.config("jsonls", {
         settings = {
@@ -364,28 +394,39 @@ return {
         },
       })
 
-      vim.lsp.config("ts_ls", {
+      vim.lsp.config("vtsls", {
+        -- Explicitly enable vtsls for typescript/javascript
+        filetypes = {
+          "javascript",
+          "javascriptreact",
+          "javascript.jsx",
+          "typescript",
+          "typescriptreact",
+          "typescript.tsx",
+        },
         settings = {
-          typescript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
+          complete_function_calls = true,
+          vtsls = {
+            enableMoveToFileCodeAction = true,
+            autoUseWorkspaceTsdk = true,
+            experimental = {
+              completion = {
+                enableServerSideFuzzyMatch = true,
+              },
             },
           },
-          javascript = {
+          typescript = {
+            updateImportsOnFileMove = { enabled = "always" },
+            suggest = {
+              completeFunctionCalls = true,
+            },
             inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
+              enumMemberValues = { enabled = true },
+              functionLikeReturnTypes = { enabled = true },
+              parameterNames = { enabled = "literals" },
+              parameterTypes = { enabled = true },
+              propertyDeclarationTypes = { enabled = true },
+              variableTypes = { enabled = false },
             },
           },
         },

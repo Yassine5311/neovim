@@ -17,6 +17,12 @@ return {
         vim.cmd.colorscheme("base16-default-dark")
       end
 
+      -- UI cleanup: soften borders and unify popup backgrounds
+      vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "FloatBorder", { link = "WinSeparator" })
+      vim.api.nvim_set_hl(0, "WinSeparator", { link = "VertSplit" })
+      vim.api.nvim_set_hl(0, "CursorLineNr", { link = "CursorLine" })
+
       -- Auto-reload when matugen.lua changes on disk
       local matugen_path = vim.fn.stdpath("config") .. "/lua/matugen.lua"
       local uv = vim.uv

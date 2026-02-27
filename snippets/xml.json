@@ -1,0 +1,402 @@
+{
+  "XML Declaration": {
+    "prefix": "xmldec",
+    "body": [
+      "<?xml version=\"${1:1.0}\" encoding=\"${2:UTF-8}\"?>",
+      "$0"
+    ],
+    "description": "XML declaration"
+  },
+  "XML Declaration with Stylesheet": {
+    "prefix": "xmlstyle",
+    "body": [
+      "<?xml version=\"${1:1.0}\" encoding=\"${2:UTF-8}\"?>",
+      "<?xml-stylesheet type=\"text/xsl\" href=\"${3:style.xsl}\"?>",
+      "$0"
+    ],
+    "description": "XML declaration with XSLT stylesheet link"
+  },
+  "XML Root with Namespace": {
+    "prefix": "xmlroot",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<${1:root} xmlns=\"${2:http://example.com/schema}\">",
+      "\t$0",
+      "</${1:root}>"
+    ],
+    "description": "XML root element with namespace"
+  },
+  "XML Root with XSD Schema": {
+    "prefix": "xmlxsd",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<${1:root}",
+      "\txmlns=\"${2:http://example.com/schema}\"",
+      "\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
+      "\txsi:schemaLocation=\"${2:http://example.com/schema} ${3:schema.xsd}\">",
+      "\t$0",
+      "</${1:root}>"
+    ],
+    "description": "XML root element with XSD schema reference for validation"
+  },
+  "XML Root with No Namespace XSD": {
+    "prefix": "xmlnoxsd",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<${1:root}",
+      "\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
+      "\txsi:noNamespaceSchemaLocation=\"${2:schema.xsd}\">",
+      "\t$0",
+      "</${1:root}>"
+    ],
+    "description": "XML root with noNamespaceSchemaLocation XSD reference"
+  },
+  "DTD Internal Subset": {
+    "prefix": "xmldtdint",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<!DOCTYPE ${1:root} [",
+      "\t<!ELEMENT ${1:root} (${2:child}*)>",
+      "\t<!ELEMENT ${2:child} (#PCDATA)>",
+      "\t$0",
+      "]>",
+      "<${1:root}>",
+      "\t<${2:child}></${2:child}>",
+      "</${1:root}>"
+    ],
+    "description": "XML with inline DTD definition"
+  },
+  "DTD External Reference": {
+    "prefix": "xmldtdext",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<!DOCTYPE ${1:root} SYSTEM \"${2:schema.dtd}\">",
+      "<${1:root}>",
+      "\t$0",
+      "</${1:root}>"
+    ],
+    "description": "XML with external DTD reference for validation"
+  },
+  "DTD Public Reference": {
+    "prefix": "xmldtdpub",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<!DOCTYPE ${1:root} PUBLIC \"${2:-//OWNER//DTD NAME//EN}\" \"${3:schema.dtd}\">",
+      "<${1:root}>",
+      "\t$0",
+      "</${1:root}>"
+    ],
+    "description": "XML with public DTD reference"
+  },
+  "CDATA Section": {
+    "prefix": "cdata",
+    "body": [
+      "<![CDATA[",
+      "\t$0",
+      "]]>"
+    ],
+    "description": "CDATA section"
+  },
+  "XML Comment": {
+    "prefix": "xmlcom",
+    "body": "<!-- ${1:comment} -->",
+    "description": "XML comment"
+  },
+  "XML Comment Block": {
+    "prefix": "xmlcomblock",
+    "body": [
+      "<!--",
+      "\t${1:comment}",
+      "-->"
+    ],
+    "description": "Multi-line XML comment block"
+  },
+  "XML Processing Instruction": {
+    "prefix": "xmlpi",
+    "body": "<?${1:target} ${2:data}?>",
+    "description": "XML processing instruction"
+  },
+  "XML Element": {
+    "prefix": "xmlel",
+    "body": "<${1:element}>${2}<//${1:element}>",
+    "description": "XML element with content"
+  },
+  "XML Element with Attribute": {
+    "prefix": "xmlelattr",
+    "body": "<${1:element} ${2:attr}=\"${3:value}\">${4}<//${1:element}>",
+    "description": "XML element with attribute"
+  },
+  "XML Self-Closing Element": {
+    "prefix": "xmlself",
+    "body": "<${1:element} ${2:attr}=\"${3:value}\" />",
+    "description": "Self-closing XML element"
+  },
+  "XML Namespace Declaration": {
+    "prefix": "xmlns",
+    "body": "xmlns:${1:prefix}=\"${2:http://example.com/ns}\"",
+    "description": "XML namespace declaration"
+  },
+  "XSD Schema Template": {
+    "prefix": "xsdschema",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<xs:schema xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"",
+      "\ttargetNamespace=\"${1:http://example.com/schema}\"",
+      "\txmlns=\"${1:http://example.com/schema}\"",
+      "\telementFormDefault=\"qualified\">",
+      "",
+      "\t$0",
+      "",
+      "</xs:schema>"
+    ],
+    "description": "XSD schema skeleton"
+  },
+  "XSD Simple Element": {
+    "prefix": "xsdel",
+    "body": "<xs:element name=\"${1:name}\" type=\"xs:${2:string}\" />",
+    "description": "XSD simple element declaration"
+  },
+  "XSD Complex Type": {
+    "prefix": "xsdcomplex",
+    "body": [
+      "<xs:complexType name=\"${1:TypeName}\">",
+      "\t<xs:sequence>",
+      "\t\t<xs:element name=\"${2:child}\" type=\"xs:${3:string}\" />",
+      "\t\t$0",
+      "\t</xs:sequence>",
+      "</xs:complexType>"
+    ],
+    "description": "XSD complex type with sequence"
+  },
+  "XSD Complex Type with Attributes": {
+    "prefix": "xsdcomplexattr",
+    "body": [
+      "<xs:complexType name=\"${1:TypeName}\">",
+      "\t<xs:sequence>",
+      "\t\t<xs:element name=\"${2:child}\" type=\"xs:${3:string}\" />",
+      "\t</xs:sequence>",
+      "\t<xs:attribute name=\"${4:attr}\" type=\"xs:${5:string}\" use=\"${6|required,optional,prohibited|}\" />",
+      "\t$0",
+      "</xs:complexType>"
+    ],
+    "description": "XSD complex type with child elements and attributes"
+  },
+  "XSD Simple Type (Restriction)": {
+    "prefix": "xsdsimple",
+    "body": [
+      "<xs:simpleType name=\"${1:TypeName}\">",
+      "\t<xs:restriction base=\"xs:${2:string}\">",
+      "\t\t${3:<xs:minLength value=\"1\" />}",
+      "\t\t${4:<xs:maxLength value=\"255\" />}",
+      "\t\t$0",
+      "\t</xs:restriction>",
+      "</xs:simpleType>"
+    ],
+    "description": "XSD simple type with restriction"
+  },
+  "XSD Enumeration": {
+    "prefix": "xsdenum",
+    "body": [
+      "<xs:simpleType name=\"${1:TypeName}\">",
+      "\t<xs:restriction base=\"xs:string\">",
+      "\t\t<xs:enumeration value=\"${2:value1}\" />",
+      "\t\t<xs:enumeration value=\"${3:value2}\" />",
+      "\t\t<xs:enumeration value=\"${4:value3}\" />",
+      "\t\t$0",
+      "\t</xs:restriction>",
+      "</xs:simpleType>"
+    ],
+    "description": "XSD enumeration type"
+  },
+  "XSD Attribute": {
+    "prefix": "xsdattr",
+    "body": "<xs:attribute name=\"${1:name}\" type=\"xs:${2:string}\" use=\"${3|required,optional,prohibited|}\" />",
+    "description": "XSD attribute declaration"
+  },
+  "XSD Sequence": {
+    "prefix": "xsdseq",
+    "body": [
+      "<xs:sequence>",
+      "\t<xs:element name=\"${1:element}\" type=\"xs:${2:string}\" minOccurs=\"${3:0}\" maxOccurs=\"${4:unbounded}\" />",
+      "\t$0",
+      "</xs:sequence>"
+    ],
+    "description": "XSD sequence compositor"
+  },
+  "XSD Choice": {
+    "prefix": "xsdchoice",
+    "body": [
+      "<xs:choice>",
+      "\t<xs:element name=\"${1:option1}\" type=\"xs:${2:string}\" />",
+      "\t<xs:element name=\"${3:option2}\" type=\"xs:${4:string}\" />",
+      "\t$0",
+      "</xs:choice>"
+    ],
+    "description": "XSD choice compositor"
+  },
+  "XSD Import": {
+    "prefix": "xsdimport",
+    "body": "<xs:import namespace=\"${1:http://example.com/ns}\" schemaLocation=\"${2:schema.xsd}\" />",
+    "description": "XSD import another schema"
+  },
+  "XSD Include": {
+    "prefix": "xsdinclude",
+    "body": "<xs:include schemaLocation=\"${1:schema.xsd}\" />",
+    "description": "XSD include another schema"
+  },
+  "XSD Pattern Restriction": {
+    "prefix": "xsdpattern",
+    "body": [
+      "<xs:simpleType name=\"${1:TypeName}\">",
+      "\t<xs:restriction base=\"xs:string\">",
+      "\t\t<xs:pattern value=\"${2:[A-Za-z0-9]+}\" />",
+      "\t</xs:restriction>",
+      "</xs:simpleType>"
+    ],
+    "description": "XSD type with regex pattern restriction"
+  },
+  "DTD Element Declaration": {
+    "prefix": "dtdel",
+    "body": "<!ELEMENT ${1:name} ${2|(#PCDATA),EMPTY,ANY,(child)|}> $0",
+    "description": "DTD element declaration"
+  },
+  "DTD Attribute List": {
+    "prefix": "dtdattr",
+    "body": "<!ATTLIST ${1:element} ${2:attribute} ${3|CDATA,ID,IDREF,IDREFS,NMTOKEN,NMTOKENS,ENTITY,ENTITIES|} ${4|#REQUIRED,#IMPLIED,#FIXED|} ${5}>",
+    "description": "DTD attribute list declaration"
+  },
+  "DTD Entity Declaration": {
+    "prefix": "dtdentity",
+    "body": "<!ENTITY ${1:name} \"${2:value}\">",
+    "description": "DTD general entity declaration"
+  },
+  "DTD Parameter Entity": {
+    "prefix": "dtdparam",
+    "body": "<!ENTITY % ${1:name} \"${2:value}\">",
+    "description": "DTD parameter entity declaration"
+  },
+  "DTD External Entity": {
+    "prefix": "dtdentext",
+    "body": "<!ENTITY ${1:name} SYSTEM \"${2:file.xml}\">",
+    "description": "DTD external entity declaration"
+  },
+  "DTD Notation": {
+    "prefix": "dtdnot",
+    "body": "<!NOTATION ${1:name} SYSTEM \"${2:identifier}\">",
+    "description": "DTD notation declaration"
+  },
+  "DTD Full Template": {
+    "prefix": "dtdtemplate",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "",
+      "<!-- DTD for ${1:Document Type} -->",
+      "<!ELEMENT ${2:root} (${3:child}+)>",
+      "<!ELEMENT ${3:child} (#PCDATA)>",
+      "<!ATTLIST ${3:child}",
+      "\t${4:id} ID #REQUIRED",
+      "\t${5:name} CDATA #IMPLIED",
+      ">",
+      "$0"
+    ],
+    "description": "Full DTD template file"
+  },
+  "XHTML Template": {
+    "prefix": "xhtml",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\"",
+      "\t\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">",
+      "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"${1:en}\" lang=\"${1:en}\">",
+      "<head>",
+      "\t<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />",
+      "\t<title>${2:Title}</title>",
+      "</head>",
+      "<body>",
+      "\t$0",
+      "</body>",
+      "</html>"
+    ],
+    "description": "XHTML 1.0 Strict template"
+  },
+  "SVG Template": {
+    "prefix": "svg",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<svg xmlns=\"http://www.w3.org/2000/svg\"",
+      "\twidth=\"${1:100}\" height=\"${2:100}\"",
+      "\tviewBox=\"0 0 ${1:100} ${2:100}\">",
+      "\t$0",
+      "</svg>"
+    ],
+    "description": "SVG template"
+  },
+  "Maven POM Template": {
+    "prefix": "pom",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<project xmlns=\"http://maven.apache.org/POM/4.0.0\"",
+      "\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
+      "\txsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0",
+      "\t\thttp://maven.apache.org/xsd/maven-4.0.0.xsd\">",
+      "\t<modelVersion>4.0.0</modelVersion>",
+      "",
+      "\t<groupId>${1:com.example}</groupId>",
+      "\t<artifactId>${2:project}</artifactId>",
+      "\t<version>${3:1.0-SNAPSHOT}</version>",
+      "\t<packaging>${4|jar,war,pom|}</packaging>",
+      "",
+      "\t<dependencies>",
+      "\t\t$0",
+      "\t</dependencies>",
+      "</project>"
+    ],
+    "description": "Maven POM file template with XSD validation"
+  },
+  "Maven Dependency": {
+    "prefix": "dep",
+    "body": [
+      "<dependency>",
+      "\t<groupId>${1:group}</groupId>",
+      "\t<artifactId>${2:artifact}</artifactId>",
+      "\t<version>${3:version}</version>",
+      "\t<scope>${4|compile,provided,runtime,test,system|}</scope>",
+      "</dependency>"
+    ],
+    "description": "Maven dependency"
+  },
+  "Spring Bean XML Config": {
+    "prefix": "springbean",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<beans xmlns=\"http://www.springframework.org/schema/beans\"",
+      "\txmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"",
+      "\txsi:schemaLocation=\"http://www.springframework.org/schema/beans",
+      "\t\thttp://www.springframework.org/schema/beans/spring-beans.xsd\">",
+      "",
+      "\t<bean id=\"${1:beanId}\" class=\"${2:com.example.MyClass}\">",
+      "\t\t$0",
+      "\t</bean>",
+      "",
+      "</beans>"
+    ],
+    "description": "Spring beans XML configuration template"
+  },
+  "Android Layout Template": {
+    "prefix": "androidlayout",
+    "body": [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<LinearLayout",
+      "\txmlns:android=\"http://schemas.android.com/apk/res/android\"",
+      "\txmlns:app=\"http://schemas.android.com/apk/res-auto\"",
+      "\tandroid:layout_width=\"match_parent\"",
+      "\tandroid:layout_height=\"match_parent\"",
+      "\tandroid:orientation=\"${1|vertical,horizontal|}\">",
+      "",
+      "\t$0",
+      "",
+      "</LinearLayout>"
+    ],
+    "description": "Android XML layout template"
+  }
+}

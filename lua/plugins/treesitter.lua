@@ -10,7 +10,13 @@ return {
     cmd = { "TSUpdate", "TSInstall", "TSInstallInfo" },
     config = function()
       -- Kickstart/LazyVim style setup via nvim-treesitter.configs
-      require("nvim-treesitter.configs").setup({
+      local ok, configs = pcall(require, "nvim-treesitter.configs")
+      if not ok then
+        vim.notify("nvim-treesitter.configs not found (install/update plugins)", vim.log.levels.WARN)
+        return
+      end
+
+      configs.setup({
         ensure_installed = {
           "bash", "c", "cpp", "cmake", "css", "diff", "dockerfile", "fish",
           "git_config", "git_rebase", "gitcommit", "gitignore",

@@ -6,10 +6,11 @@ return {
     "nvim-treesitter/nvim-treesitter",
     version = false,
     branch = "main",
-    event = { "BufReadPost", "BufNewFile", "VeryLazy" },
+    event = { "BufReadPost", "BufNewFile" },
     cmd = { "TSUpdate", "TSInstall", "TSInstallInfo" },
     config = function()
-      require("nvim-treesitter").setup({
+      -- Kickstart/LazyVim style setup via nvim-treesitter.configs
+      require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "bash", "c", "cpp", "cmake", "css", "diff", "dockerfile", "fish",
           "git_config", "git_rebase", "gitcommit", "gitignore",
@@ -24,9 +25,18 @@ return {
           "vim", "vimdoc", "vue",
           "xml", "yaml", "zig",
         },
+        highlight = { enable = true },
+        indent = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gnn",
+            node_incremental = "grn",
+            scope_incremental = "grc",
+            node_decremental = "grm",
+          },
+        },
       })
-      -- Enable treesitter-based highlighting and indentation
-      vim.treesitter.start = vim.treesitter.start or function() end
     end,
   },
 

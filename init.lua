@@ -25,7 +25,8 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Load plugins
 require("lazy").setup("plugins", {
-  defaults = { lazy = false },
+  -- Lazy-load by default (LazyVim pattern); opt-out with lazy=false per plugin
+  defaults = { lazy = true },
   install = { colorscheme = { "base16-default-dark", "habamax" } },
   checker = { enabled = true, notify = false },
   change_detection = { notify = false },

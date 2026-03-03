@@ -44,18 +44,16 @@ return {
       image = {
         enabled = true,
         doc = {
-            inline = false,
-            float = true,
+          inline = false,
+          float = true,
         },
       },
       styles = {
         snacks_image = {
-            relative = "editor",
-            position = "float",
-            border = "rounded",
-            keys = {
-                q = "close",
-            },
+          relative = "editor",
+          position = "float",
+          border = "rounded",
+          keys = { q = "close" },
         },
       },
       -- Dashboard (replaces dashboard-nvim if desired, or keep both)
@@ -65,7 +63,6 @@ return {
       git = { enabled = true },
       -- Picker for gitlog
       picker = { enabled = true },
-
     },
     keys = {
       -- Buffer delete (preserves window layout)

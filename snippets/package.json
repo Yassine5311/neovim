@@ -1,0 +1,11 @@
+{
+  "name": "custom-snippets",
+  "contributes": {
+    "snippets": [
+      {
+        "language": ["xml", "xsd", "xsl", "xslt", "svg", "dtd"],
+        "path": "./xml.json"
+      }
+    ]
+  }
+}

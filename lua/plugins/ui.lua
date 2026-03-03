@@ -33,9 +33,13 @@ return {
         long_message_to_split = true,
         inc_rename = false,
       },
-      -- Disable notify, use snacks.notifier
-      notify = { enabled = false },
+      -- Enable notify so vim.notify is routed through Noice
+      notify = { enabled = true },
     },
+    config = function(_, opts)
+      require("noice").setup(opts)
+      vim.notify = require("noice").notify
+    end,
     keys = {
       { "<leader>nl", function() require("noice").cmd("last") end, desc = "Noice Last Message" },
       { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },

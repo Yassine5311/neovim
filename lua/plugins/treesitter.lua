@@ -25,6 +25,7 @@ return {
           "lua", "luadoc", "luap",
           "make", "markdown", "markdown_inline",
           "nix", "printf", "python",
+          "latex", "norg", "typst",
           "query", "regex", "rust", "ron",
           "scss", "sql", "svelte",
           "toml", "tsx", "typescript",

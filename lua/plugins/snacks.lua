@@ -156,6 +156,18 @@ return {
           Snacks.toggle.inlay_hints():map("<leader>uh")
         end,
       })
+
+      -- Guard Snacks health check (upstream bug: compares nil with table)
+      local ok_health, health = pcall(require, "snacks.health")
+      if ok_health and type(health.check) == "function" then
+        local orig = health.check
+        health.check = function(...)
+          local ok, err = pcall(orig, ...)
+          if not ok then
+            vim.notify("Snacks health check skipped: " .. tostring(err), vim.log.levels.WARN)
+          end
+        end
+      end
     end,
   },
 }

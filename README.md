@@ -1,6 +1,8 @@
 # Neovim Configuration
 
-![Dashboard](assets/dashboard.png)
+<div align="center">
+  <img src="assets/dashboard.png" alt="Dashboard" style="border-radius: 8px; border: 1px solid #333;">
+</div>
 
 A performance-oriented and modular Neovim configuration built on lazy.nvim, featuring modern LSP integration, intelligent completion, Git tooling, and a polished UI.
 

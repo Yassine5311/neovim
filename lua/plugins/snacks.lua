@@ -41,7 +41,23 @@ return {
       -- Animated indent scope (like mini.indentscope but integrated)
       indent = { enabled = false },
       -- Image viewer for supported terminals (kitty, wezterm, etc.)
-      image = { enabled = true },
+      image = {
+        enabled = true,
+        doc = {
+            inline = false,
+            float = true,
+        },
+      },
+      styles = {
+        snacks_image = {
+            relative = "editor",
+            position = "float",
+            border = "rounded",
+            keys = {
+                q = "close",
+            },
+        },
+      },
       -- Dashboard (replaces dashboard-nvim if desired, or keep both)
       -- Dim inactive windows (like TwilightMode)
       dim = { enabled = true },
@@ -49,6 +65,7 @@ return {
       git = { enabled = true },
       -- Picker for gitlog
       picker = { enabled = true },
+
     },
     keys = {
       -- Buffer delete (preserves window layout)

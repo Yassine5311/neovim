@@ -4,7 +4,7 @@
   <img src="assets/dashboard.png" alt="Dashboard" style="border-radius: 8px; border: 1px solid #333;">
 </div>
 
-A performance-oriented and modular Neovim configuration built on lazy.nvim, featuring modern LSP integration, intelligent completion, Git tooling, and a polished UI.
+A performance-oriented, 2026 standard modular Neovim configuration built on lazy.nvim, featuring modern LSP integration (via native API, conform.nvim), an ultra-fast completion engine (blink.cmp), Git tooling, and a polished UI.
 
 ## Overview
 
@@ -23,15 +23,25 @@ This setup is designed for:
 
 ### LSP and Tooling
 
+- **Multi-language LSP support**: Configured for Python, TypeScript, Go, C/C++, Rust, XML, **Java/J2EE**
 - LSP configuration via nvim-lspconfig
 - External tool management via mason.nvim
 - Diagnostics integration with trouble.nvim
 
+### Java/J2EE Development
+
+- **JDTLS** (Java Language Server) with full IDE-like support
+- **Maven** integration for J2EE/servlet projects
+- **Tomcat** remote debugging support
+- **JUnit** test runner with test discovery
+- **Code generation**: Extract variables/methods, generate constructors, etc.
+- See [JAVA_SETUP.md](./JAVA_SETUP.md) for detailed Java development guide
+
 ### Autocompletion
 
-- Completion engine: nvim-cmp
-- Snippets: LuaSnip
-- AI assistance: GitHub Copilot
+- Completion engine: blink.cmp (Blazingly fast 2026 standard)
+- Snippets: LuaSnip (integrated with blink.cmp)
+- AI assistance: GitHub Copilot (Inline & CopilotChat)
 
 ### Syntax Highlighting
 
@@ -60,7 +70,7 @@ This setup is designed for:
 
 Ensure the following dependencies are installed:
 
-- Neovim 0.11+
+- Neovim 0.12+ (Optimized for 2026 native features)
 - Git
 - Node.js (required for Copilot, CopilotChat, and some LSP servers)
 - Ripgrep (required for Telescope live grep)

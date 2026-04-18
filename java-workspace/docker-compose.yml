@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  tomcat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: j2ee-app-server
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+    environment:
+      - JAVA_OPTS=-Xmx1g -Xms512m
+      - CATALINA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+    volumes:
+      - ./target:/opt/tomcat/webapps:ro
+      - ./logs:/opt/tomcat/logs
+    networks:
+      - j2ee-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+
+  # Optional: PostgreSQL for database testing
+  postgres:
+    image: postgres:15-alpine
+    container_name: j2ee-db
+    environment:
+      POSTGRES_DB: j2eedb
+      POSTGRES_USER: j2eeuser
+      POSTGRES_PASSWORD: j2eepass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - j2ee-network
+    restart: unless-stopped
+
+  # Optional: pgAdmin for database management
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: j2ee-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    networks:
+      - j2ee-network
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  j2ee-network:
+    driver: bridge
+
+volumes:
+  postgres_data:

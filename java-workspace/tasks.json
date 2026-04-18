@@ -1,0 +1,231 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Java: Build (Maven)",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["clean", "compile"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": {
+        "owner": "java",
+        "fileLocation": ["relative", "${workspaceFolder}"],
+        "pattern": {
+          "regexp": "^\\[ERROR\\]\\s+(.*):\\[(\\d+),(\\d+)\\]\\s+(.*)$",
+          "file": 1,
+          "location": "$2:$3",
+          "message": 4
+        }
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": true,
+        "clear": true
+      }
+    },
+    {
+      "label": "Java: Test (Maven)",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["test"],
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": "$javaTestRunner",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Java: Package WAR",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["clean", "package", "-DskipTests"],
+      "group": "build",
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Java: Quick Package",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["package", "-q"],
+      "group": "build",
+      "presentation": {
+        "reveal": "silent"
+      }
+    },
+    {
+      "label": "Java: Clean Build",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["clean"],
+      "group": "build"
+    },
+    {
+      "label": "Tomcat: Run Local (Port 8080)",
+      "type": "shell",
+      "command": "/home/zero/.config/nvim/java-workspace/tomcat10-setup.sh",
+      "args": ["start"],
+      "isBackground": true,
+      "problemMatcher": {
+        "pattern": [
+          {
+            "regexp": "^(.*)(SEVERE|WARN|INFO)(.*)$",
+            "message": 1
+          }
+        ],
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^.*Server startup",
+          "endsPattern": "^.*Server successfully started"
+        }
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "echo": true
+      }
+    },
+    {
+      "label": "Tomcat: Run with Debugging (Port 8080, Debug 8000)",
+      "type": "shell",
+      "command": "/home/zero/.config/nvim/java-workspace/tomcat10-setup.sh",
+      "args": ["start-debug"],
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Tomcat: Stop",
+      "type": "shell",
+      "command": "/home/zero/.config/nvim/java-workspace/tomcat10-setup.sh",
+      "args": ["stop"],
+      "presentation": {
+        "reveal": "silent"
+      }
+    },
+    {
+      "label": "Maven: Install Dependencies",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["dependency:resolve"],
+      "group": "build"
+    },
+    {
+      "label": "Maven: Update Dependencies",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["dependency:update-snapshots"],
+      "group": "build"
+    },
+    {
+      "label": "Maven: Show Dependency Tree",
+      "type": "shell",
+      "command": "mvn",
+      "args": ["dependency:tree"],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Java: Format Code (google-java-format)",
+      "type": "shell",
+      "command": "find",
+      "args": [
+        "src/main/java",
+        "-name",
+        "*.java",
+        "-exec",
+        "google-java-format",
+        "-i",
+        "{}",
+        "+"
+      ],
+      "presentation": {
+        "reveal": "silent"
+      }
+    },
+    {
+      "label": "Java: Run Current File (if Main class)",
+      "type": "shell",
+      "command": "java",
+      "args": [
+        "-cp",
+        "target/classes",
+        "${selectedText}"
+      ],
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "label": "Docker: Build Tomcat Image",
+      "type": "shell",
+      "command": "docker",
+      "args": ["build", "-t", "my-j2ee-app:latest", "-f", "Dockerfile", "."],
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Docker: Run Container",
+      "type": "shell",
+      "command": "docker",
+      "args": [
+        "run",
+        "-p",
+        "8080:8080",
+        "-p",
+        "8000:8000",
+        "--name",
+        "j2ee-app",
+        "-d",
+        "my-j2ee-app:latest"
+      ],
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Docker: Stop Container",
+      "type": "shell",
+      "command": "docker",
+      "args": ["stop", "j2ee-app"],
+      "presentation": {
+        "reveal": "silent"
+      }
+    },
+    {
+      "label": "Docker Compose: Up",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["up", "-d"],
+      "presentation": {
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Docker Compose: Down",
+      "type": "shell",
+      "command": "docker-compose",
+      "args": ["down"],
+      "presentation": {
+        "reveal": "silent"
+      }
+    }
+  ]
+}

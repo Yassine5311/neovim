@@ -7,7 +7,7 @@ return {
     event = { "BufWritePre" },
     cmd = { "ConformInfo" },
     keys = {
-      { "<leader>cf", function() require("conform").format({ async = true, lsp_fallback = true }) end, desc = "Format buffer" },
+      { "<leader>cf", function() require("conform").format({ async = true, lsp_format = "fallback" }) end, desc = "Format buffer" },
       { "<leader>cF", function() require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 }) end, desc = "Format injected langs" },
       { "<leader>uf", function()
         vim.g.autoformat = not vim.g.autoformat
@@ -42,16 +42,18 @@ return {
         fish       = { "fish_indent" },
         toml       = { "taplo" },
         zig        = { "zigfmt" },
+        java       = { "google-java-format" },
+        xml        = { "xmllint" },
         ["_"]      = { "trim_whitespace" },
       },
-      format_on_save = function(bufnr)
+      -- format_on_save = function(bufnr)
+      format_after_save = function(bufnr)
         if not vim.g.autoformat then return end
         -- Disable for filetypes that are slow or unwanted
         local disable_filetypes = { sql = true, text = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then return end
         return {
-          timeout_ms = 3000,
-          lsp_fallback = true,
+          lsp_format = "fallback",
         }
       end,
       formatters = {
@@ -77,6 +79,8 @@ return {
         bash       = { "shellcheck" },
         fish       = { "fish" },
         dockerfile = { "hadolint" },
+        java       = { "checkstyle" },
+        xml        = { "xmllint" },
       }
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {

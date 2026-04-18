@@ -144,6 +144,9 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
 
+-- ── J2EE / Java Menu ──
+map("n", "<leader>jj", function() require("config.j2ee").menu() end, { desc = "J2EE Project Menu" })
+
 -- ── Misc ──
 map("n", "<leader>l", "<cmd>Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>K", "<cmd>norm! K<cr>", { desc = "Keywordprg" })

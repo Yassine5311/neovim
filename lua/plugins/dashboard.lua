@@ -46,6 +46,16 @@ return {
             action = "ene | startinsert",
           },
           {
+            icon = "󰏖  ",
+            icon_hl = "Title",
+            desc = "J2EE menu",
+            desc_hl = "String",
+            key = "j",
+            key_hl = "Number",
+            key_format = " [%s]",
+            action = "lua require('config.j2ee').menu()",
+          },
+          {
             icon = "󰈙  ",
             icon_hl = "Title",
             desc = "Recent files",

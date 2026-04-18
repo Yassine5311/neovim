@@ -24,6 +24,8 @@ return {
         "taplo",                 -- toml formatter
         "goimports", "gofumpt", "golangci-lint", -- go tools
         "clang-format",          -- C/C++ formatter
+        "google-java-format",    -- Java formatter
+        "debugpy",               -- Python debugger
       },
     },
     config = function(_, opts)
@@ -69,9 +71,11 @@ return {
         "tailwindcss",
         "emmet_ls",
         "lemminx",
+        "jdtls",        -- Java Development Tools Language Server
       },
       automatic_enable = true,
-    },
+    },      -- JDTLS setup with increased memory for J2EE projects
+
   },
 
   -- LSP config
@@ -175,9 +179,14 @@ return {
         dynamicRegistration = false,
         lineFoldingOnly = true,
       }
-      local cmp_ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
-      if cmp_ok then
-        capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
+      local has_blink, blink = pcall(require, "blink.cmp")
+      if has_blink then
+        capabilities = blink.get_lsp_capabilities(capabilities)
+      else
+        local cmp_ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+        if cmp_ok then
+          capabilities = vim.tbl_deep_extend("force", capabilities, cmp_lsp.default_capabilities())
+        end
       end
 
       -- Register LspAttach autocommand for keymaps
@@ -428,6 +437,41 @@ return {
               propertyDeclarationTypes = { enabled = true },
               variableTypes = { enabled = false },
             },
+          },
+        },
+      })
+
+      -- Java Language Server (jdtls) - configured in java.lua plugin
+      -- This ensures basic LSP capabilities are available
+      vim.lsp.config("jdtls", {
+        cmd = { "jdtls" },
+        root_dir = require("lspconfig.util").root_pattern({ ".git", "pom.xml", "build.gradle", ".project" }),
+        settings = {
+          java = {
+            configuration = {
+              runtimes = {},
+              -- Point to your JDK installations
+            },
+            format = {
+              enabled = true,
+              settings = {
+                url = vim.fn.stdpath("config") .. "/java-format-settings.xml",
+              },
+            },
+            saveActions = {
+              organizeImports = true,
+            },
+            completion = {
+              maxResults = 20,
+              matchCase = "off",
+            },
+            hover = {
+              enabled = true,
+            },
+            signatureHelp = {
+              enabled = true,
+            },
+            contentProvider = "fernflower", -- decompiler for class files
           },
         },
       })

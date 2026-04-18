@@ -85,7 +85,7 @@ return {
       "CopilotChatModels",
     },
     opts = {
-      model = "gpt-4.1",
+      model = "gpt-4",
       temperature = 0.1,
       auto_insert_mode = true,
       show_folds = true,
@@ -112,17 +112,20 @@ return {
           require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
         end
       end, desc = "Quick chat (buffer)", mode = { "n", "v" } },
+      
       -- Predefined prompts
-      { "<leader>ae", "<cmd>CopilotChatExplain<cr>",  desc = "Explain code",    mode = { "n", "v" } },
-      { "<leader>ar", "<cmd>CopilotChatReview<cr>",   desc = "Review code",     mode = { "n", "v" } },
-      { "<leader>af", "<cmd>CopilotChatFix<cr>",      desc = "Fix code",        mode = { "n", "v" } },
-      { "<leader>ao", "<cmd>CopilotChatOptimize<cr>",  desc = "Optimize code",   mode = { "n", "v" } },
-      { "<leader>ad", "<cmd>CopilotChatDocs<cr>",     desc = "Generate docs",   mode = { "n", "v" } },
-      { "<leader>at", "<cmd>CopilotChatTests<cr>",    desc = "Generate tests",  mode = { "n", "v" } },
+      { "<leader>ae", "<cmd>CopilotChatExplain<cr>",  desc = "Explain code",       mode = { "n", "v" } },
+      { "<leader>ar", "<cmd>CopilotChatReview<cr>",   desc = "Review code",        mode = { "n", "v" } },
+      { "<leader>af", "<cmd>CopilotChatFix<cr>",      desc = "Fix code",           mode = { "n", "v" } },
+      { "<leader>ao", "<cmd>CopilotChatOptimize<cr>", desc = "Optimize code",      mode = { "n", "v" } },
+      { "<leader>ad", "<cmd>CopilotChatDocs<cr>",     desc = "Generate docs",      mode = { "n", "v" } },
+      { "<leader>at", "<cmd>CopilotChatTests<cr>",    desc = "Generate tests",     mode = { "n", "v" } },
       { "<leader>ac", "<cmd>CopilotChatCommit<cr>",   desc = "Generate commit msg" },
+      
       -- Model & prompt selection
       { "<leader>am", "<cmd>CopilotChatModels<cr>",   desc = "Select AI model" },
       { "<leader>ap", "<cmd>CopilotChatPrompts<cr>",  desc = "Select prompt" },
+      
       -- Reset/save/load
       { "<leader>ax", "<cmd>CopilotChatReset<cr>",    desc = "Reset chat" },
       { "<leader>as", "<cmd>CopilotChatSave<cr>",     desc = "Save chat" },

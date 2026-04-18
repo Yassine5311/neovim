@@ -1,0 +1,80 @@
+# Java/Maven build artifacts
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# IDE
+.project
+.classpath
+.settings/
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Eclipse
+bin/
+.gradle/
+
+# Maven
+.m2/
+maven-metadata.xml
+maven-metadata.xml.md5
+maven-metadata.xml.sha1
+
+# NetBeans
+nbproject/
+build/
+dist/
+.nb-gradle/
+
+# Tomcat
+*.log
+logs/
+work/
+*.pid
+
+# Database
+*.db
+*.sqlite
+pgdata/
+data/
+
+# System files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.env
+.env.local
+
+# Testing
+test-results/
+coverage/
+*.coverage
+
+# Node (if using frontend tools)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Docker
+.dockerignore
+
+# Local development
+local.properties
+local.env
+.vscode-test
+
+# Backup files
+*.bak
+*.backup
+*.orig

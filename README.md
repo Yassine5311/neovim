@@ -1,124 +1,68 @@
-# Neovim Configuration
-
 <div align="center">
-  <img src="assets/dashboard.png" alt="Dashboard" style="border-radius: 8px; border: 1px solid #333;">
+  <h1>⚡ ZERO's Neovim</h1>
+  <p>A blazingly fast, modern Neovim 0.12+ configuration built for 2026.</p>
+  
+  <img src="assets/dashboard.png" alt="Dashboard" style="border-radius: 8px; border: 1px solid #333; margin: 15px 0;">
+  
+  <p>
+    <img src="https://img.shields.io/badge/Neovim-0.12+-blue.svg?style=for-the-badge&logo=neovim" alt="Neovim Version" />
+    <img src="https://img.shields.io/badge/Package_Manager-lazy.nvim-blueviolet.svg?style=for-the-badge" alt="Lazy.nvim" />
+    <img src="https://img.shields.io/badge/Completion-blink.cmp-FF9E0F.svg?style=for-the-badge" alt="Blink.cmp" />
+  </p>
 </div>
 
-A performance-oriented, 2026 standard modular Neovim configuration built on lazy.nvim, featuring modern LSP integration (via native API, conform.nvim), an ultra-fast completion engine (blink.cmp), Git tooling, and a polished UI.
+## ✨ Overview
 
-## Overview
+This configuration is engineered for **ultimate performance** and **modularity**, keeping up with the 2026 development standards. Built on top of `lazy.nvim`, it provides a highly extensible base without the bloat, featuring an ultra-fast completion engine (`blink.cmp`), AI assistance, and seamless native LSP and formatting capabilities.
 
-This setup is designed for:
+## 🚀 Features
 
-- Fast startup through lazy-loading
-- Minimal boilerplate with maximal extensibility
-- Clean UI with practical developer ergonomics
-- Fully managed LSP and tooling via Mason
+- **⚡ Blazingly Fast Completion:** Powered by `blink.cmp` (integrated with `LuaSnip`), explicitly configured as the 2026 standard replacement for `nvim-cmp`.
+- **🧠 AI Assistance:** Deep integration with GitHub Copilot (Inline Suggestions & Copilot Chat) for rapid development.
+- **🛠️ Tooling & LSP:** Seamlessly managed via `mason.nvim` and native `nvim-lspconfig`, with formatting offloaded to the highly efficient `conform.nvim`.
+- **🌲 Syntax & Parsing:** Incremental, precise syntax highlighting and code parsing via `nvim-treesitter`.
+- **☕ Enterprise Java Support:** Robust J2EE/Servlet capabilities including JDTLS, Maven, JUnit, and remote Tomcat debugging. (See [JAVA_SETUP.md](./JAVA_SETUP.md)).
+- **🎨 Immersive UI:** Features `lualine.nvim`, `bufferline.nvim`, `dashboard-nvim`, `noice.nvim`, and automated theming via **Matugen** (Base16).
+- **🐙 Advanced Git Tooling:** Git line indicators (`gitsigns.nvim`), conflict/diff resolving (`diffview.nvim`), and a powerful TUI (`neogit`).
 
-## Core Features
+## ⚙️ Installation
 
-### Plugin Management
+We provide a robust, interactive installation script that naturally handles dependencies using your system's package manager (`apt`, `dnf`, `pacman`, `brew`).
 
-- Lazy-loaded architecture powered by lazy.nvim
-
-### LSP and Tooling
-
-- **Multi-language LSP support**: Configured for Python, TypeScript, Go, C/C++, Rust, XML, **Java/J2EE**
-- LSP configuration via nvim-lspconfig
-- External tool management via mason.nvim
-- Diagnostics integration with trouble.nvim
-
-### Java/J2EE Development
-
-- **JDTLS** (Java Language Server) with full IDE-like support
-- **Maven** integration for J2EE/servlet projects
-- **Tomcat** remote debugging support
-- **JUnit** test runner with test discovery
-- **Code generation**: Extract variables/methods, generate constructors, etc.
-- See [JAVA_SETUP.md](./JAVA_SETUP.md) for detailed Java development guide
-
-### Autocompletion
-
-- Completion engine: blink.cmp (Blazingly fast 2026 standard)
-- Snippets: LuaSnip (integrated with blink.cmp)
-- AI assistance: GitHub Copilot (Inline & CopilotChat)
-
-### Syntax Highlighting
-
-- Incremental parsing via nvim-treesitter
-
-### Git Integration
-
-- Inline Git indicators: gitsigns.nvim
-- Diff viewer: diffview.nvim
-- Git UI: neogit
-
-### UI Enhancements
-
-- Statusline: lualine.nvim
-- Bufferline: bufferline.nvim
-- Dashboard: dashboard-nvim
-- Keybinding hints: which-key.nvim
-- Breadcrumbs: dropbar.nvim
-- Scrollbar UI: nvim-scrollbar
-
-### Theming
-
-- Base16 theming with automatic color generation via Matugen
-
-## Requirements
-
-Ensure the following dependencies are installed:
-
-- Neovim 0.12+ (Optimized for 2026 native features)
-- Git
-- Node.js (required for Copilot, CopilotChat, and some LSP servers)
-- Ripgrep (required for Telescope live grep)
-- fd (recommended for faster file search)
-- make (required for native extensions like telescope-fzf-native and CopilotChat)
-- A C compiler (required by nvim-treesitter)
-- tree-sitter-cli (required for some Treesitter installs)
-- Yarn or npm (required for markdown-preview.nvim build)
-- Nerd Font (recommended for proper icon rendering)
-- lazygit (optional, used by Snacks integration)
-
-## Installation
-
-We provide an interactive installation script that automatically handles dependencies, optional language tools (Java, Python, Go, Rust), features (Lazygit, clipboard integrations), and securely clones the configuration. 
-
-Supported package managers: `apt`, `dnf`, `pacman`, and `brew`.
-
+### 1. Clone the configuration
 ```sh
-# Clone the repository
 git clone https://github.com/Yassine5311/neovim.git ~/.config/nvim
+```
 
-# Run the interactive installer
+### 2. Run the interactive installer
+```sh
 cd ~/.config/nvim
 ./install.sh
 ```
 
-Follow the on-screen menu to set up your neovim environment. The script will automatically bootstrap lazy.nvim and install all configured plugins headlessly.
+> **Note:** The installer provides a menu allowing you to install core dependencies, optional enterprise languages (`Java`, `Python`, `Go`, `Rust`), and interactive tools like `Lazygit` and `Clipboard` integrations. After the native dependencies are configured, Neovim will launch headlessly to automatically bootstrap and sync all of your plugins.
 
-## Key Mappings (Highlights)
+## ⌨️ Key Mappings (Highlights)
 
 | Keybinding | Action |
-| --- | --- |
-| <leader>ff | Find files |
-| <leader>fg | Live grep |
-| <leader>gd | Open Diffview |
-| <leader>gG | Open Neogit |
-| <leader>aa | Copilot Chat |
-| <leader>cf | Format buffer |
-| <leader>xx | Show diagnostics (Trouble) |
+| :--- | :--- |
+| `<leader>ff` | Find files (`Telescope`) |
+| `<leader>fg` | Live grep (`Telescope`) |
+| `<leader>gd` | Open `Diffview` |
+| `<leader>gG` | Open `Neogit` |
+| `<leader>aa` | Toggle `Copilot Chat` |
+| `<leader>cf` | Format current buffer (`conform.nvim`) |
+| `<leader>xx` | Toggle Workspace Diagnostics (`trouble.nvim`) |
 
-## Matugen Auto-Theming
+## 🎨 Matugen Auto-Theming
 
-- matugen-template.lua -> Theme template
-- matugen.lua -> Auto-generated file
-- Automatically reloads when updated
+The colorscheme is dynamically generated using Matugen for a customized experience.
+- `matugen-template.lua` -> Theme template
+- `matugen.lua` -> Auto-generated output file
+- Colors automatically hot-reload when updated.
 
-## Post-Install Notes
+## 💡 Post-Install Notes
 
-- Run :Copilot auth on first use to authenticate.
-- Run :TSUpdate if Treesitter parsers are missing.
-- Use :Mason to manage external LSP servers and formatters.
+- **Copilot**: Run `:Copilot auth` on first use to authenticate with your GitHub account.
+- **Treesitter**: Run `:TSUpdate` if any syntax highlighting appears incomplete or parsers are missing.
+- **Tooling**: Run `:Mason` to visually browse, install, or update additional external LSP servers, linters, or formatters.

@@ -84,17 +84,20 @@ Ensure the following dependencies are installed:
 
 ## Installation
 
+We provide an interactive installation script that automatically handles dependencies, optional language tools (Java, Python, Go, Rust), features (Lazygit, clipboard integrations), and securely clones the configuration. 
+
+Supported package managers: `apt`, `dnf`, `pacman`, and `brew`.
+
 ```sh
+# Clone the repository
 git clone https://github.com/Yassine5311/neovim.git ~/.config/nvim
+
+# Run the interactive installer
+cd ~/.config/nvim
+./install.sh
 ```
 
-Then launch:
-
-```sh
-nvim
-```
-
-On first run, lazy.nvim will automatically install all plugins.
+Follow the on-screen menu to set up your neovim environment. The script will automatically bootstrap lazy.nvim and install all configured plugins headlessly.
 
 ## Key Mappings (Highlights)
 
